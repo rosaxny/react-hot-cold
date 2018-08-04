@@ -16,7 +16,7 @@ export default class Game extends React.Component {
 	handleGuess(e) {
 		e.preventDefault();
 		if(this.state.guess === randomNumber) {
-			console.log('yay!')
+			console.log('yaaay!');		
 		} else {
 			console.log('boooo');
 		}
@@ -27,20 +27,59 @@ export default class Game extends React.Component {
 		// value is a string
 	}
 	render() {
-		const { guess } = this.state
-		return (
-			<div className="game">
-				<form onSubmit={this.handleGuess}>
-					<input 
-						type="text"
-						value={ guess }
-						onChange={this.handleChange}
-					/>
-					<br />
-					<button type="submit">Guess!</button>
-				</form>
-				<GuessHistory />
-			</div>
-		);
+		const { guess } = this.state;
+		if(this.state.guess === '') {
+			return (
+				<div className="game">
+					<form onSubmit={this.handleGuess}>
+						<input 
+							type="text"
+							value={ guess }
+							onChange={this.handleChange}
+						/>
+						<br />
+						<button type="submit">Guess!</button>
+					</form>
+					<GuessHistory />
+				</div>
+			);
+		} else if (guess !== randomNumber) {
+			console.log('boooo');
+			return (
+				<div className="game">
+					<form onSubmit={this.handleGuess}>
+						<input 
+							type="text"
+							value={ guess }
+							onChange={this.handleChange}
+						/>
+						<br />
+						<button type="submit">Guess!</button>
+					</form>
+					<GuessHistory />
+					<p>{guess}</p>
+				</div>
+			);
+		} else {
+			console.log('yaaay');
+
+			return (
+				<div className="game">
+					<p>Correct!</p>
+					<form onSubmit={this.handleGuess}>
+						<input 
+							type="text"
+							value={ guess }
+							onChange={this.handleChange}
+						/>
+						<br />
+						<button type="submit">Guess!</button>
+					</form>
+					<GuessHistory />
+					<p>{guess}</p>
+				</div>
+			);
+		}
+		
 	}
 }
