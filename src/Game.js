@@ -1,6 +1,6 @@
 import React from 'react';
 
-const randomNumber = '97';
+const randomNumber = () => Math.floor((Math.random() * 201) - 100).toString();
 
 export default class Game extends React.Component {
 	constructor(props) {
@@ -8,7 +8,8 @@ export default class Game extends React.Component {
 		this.state ={
 			guess: '',
 			history: [],
-			submitted: false
+			submitted: false, 
+			randomNumber: randomNumber()
 		}
 		this.handleGuess = this.handleGuess.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -17,21 +18,21 @@ export default class Game extends React.Component {
 	handleGuess(e) {
 		e.preventDefault();
 		this.setState({ submitted: true });
-		const { guess, history } = this.state;
+		const { guess, history, randomNumber } = this.state;
 		if(guess !== randomNumber) {	
 			this.setState({ history: history.concat(guess)});
-			// WHY DOES THIS NOT CONSOLE LOG THE UPDATED ARRAY - always a nuber behind
+			// WHY DOES THIS NOT CONSOLE LOG THE UPDATED ARRAY - always a number behind
 			this.setState({submitted:false, guess: ''});
-
 		}
 		// value is a string
 	}
 	handleChange(e) {
 		this.setState({ guess: e.target.value });
+		console.log(this.state);
 		// value is a string
 	}
 	render() {
-		const { guess, history, submitted } = this.state;
+		const { guess, history, submitted, randomNumber } = this.state;
 		let list = history.join(', ');
 		if (submitted === false) {
 			return (
