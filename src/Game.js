@@ -18,19 +18,25 @@ export default class Game extends React.Component {
 		e.preventDefault();
 		this.setState({ submitted: true });
 		const { guess, history, randomNumber } = this.state;
-		const diff = Math.abs(parseInt(guess,10) - parseInt(randomNumber,10));
+		const diff = Math.abs(parseInt(guess, 10) - parseInt(randomNumber, 10));
 		if(guess !== randomNumber) {	
 			this.setState({ history: history.concat(guess)});
 			// WHY DOES THIS NOT CONSOLE LOG THE UPDATED ARRAY - always a number behind
 			this.setState({submitted:false, guess: ''});
+			console.log(this.state)
 			console.log('DIFFERENCE IS', diff);
-			if(diff <= 25) {
-				// console.log(diff);
-				this.setState({ feedback: 'You are hot!'});
-			} else if (diff <= 50) {
+			if (diff >= 50) {
+				this.setState({ feedback: 'You are very cold.'})
+			} else if (diff >= 33) {
+				this.setState({ feedback: 'You are cold.'})
+			} else if (diff >= 25) {
 				this.setState({ feedback: 'You are warm.'});
+			} else if (diff >= 15) {
+				this.setState({ feedback: 'You are very warm.'});
+			} else if (diff >= 7) {
+				this.setState({ feedback: 'You are hot!'})
 			} else {
-				this.setState({ feedback: 'Make another guess!'});
+				this.setState({ feedback: 'You are very hot!'});
 			}
 		} else {
 			this.setState({ feedback: 'Correct! The number was '});
@@ -40,7 +46,6 @@ export default class Game extends React.Component {
 	}
 	handleChange(e) {
 		this.setState({ guess: e.target.value });
-		console.log(this.state)
 		// value is a string
 	}
 	render() {
@@ -69,7 +74,7 @@ export default class Game extends React.Component {
 		} else {
 			return  (
 				<div className="game">
-					<p>{feedback} {randomNumber}! </p>
+					<p>{feedback} {randomNumber}. </p>
 					<form onSubmit={this.handleGuess}>
 						<input 
 							type="number"

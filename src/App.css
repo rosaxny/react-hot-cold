@@ -1,14 +1,17 @@
 .App {
   text-align: center;
   margin: 100px auto;
-  height: 300px;
+  min-height: 300px;
   width: 300px;
-  border: 1px solid black;
 }
 
 div {
   border: 1px dotted black;
   padding: 25px auto;
+}
+
+.game {
+	padding: 0 25px;
 }
 
 form {
